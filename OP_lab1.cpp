@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include "init.h"
 using namespace std;
 int main() {
@@ -13,17 +14,35 @@ int main() {
 		getline(game_results, line);
 		int num = stoi(line), k = 0;
 		string* teams = new string[num];
-		int* all_points = new int[num];
+		int *stats;
+		int* MP = new int[num];
+		int* W = new int[num];
+		int* D = new int[num];
+		int* L = new int[num];
+		int* GF = new int[num];
+		int* GA = new int[num];
+		int* GD = new int[num];
+		int* Pts = new int[num];
 		while (getline(game_results, line))
 		{
+			int *stats = team_stats(line);
 			teams[k] = add_team(line);
-			all_points[k] = team_points(line);
+			MP[k] = stats[0];
+			W[k] = stats[1];
+			D[k] = stats[2];
+			L[k] = stats[3];
+			GF[k] = stats[4];
+			GA[k] = stats[5];
+			GD[k] = stats[6];
+			Pts[k] = stats[7];
 			k++;
 		}
-		sort_teams(all_points, teams, num);
+		sort_teams(MP, W, D, L, GF, GA, GD, Pts, teams, num);
+		final_table << "Club" << ',' << "MP" << ',' << "W" << ',' << "D" << ',' << "L" << ',' << "GF" << ',' << "GA" << ',' << "GD" << ',' << "Pts" << endl;
+		cout << left << setw(3) << "Club" << ' ' << "MP" << ' ' << "W" << ' ' << "D" << ' ' << "L" << ' ' << "GF" << ' ' << "GA" << ' ' << "GD" << ' ' << "Pts" << endl;
 		for (int i = 0; i < num; i++) {
-			final_table << teams[i] << "," << all_points[i] << endl;
-			cout << teams[i] << ' ' << all_points[i] << endl;
+			final_table << teams[i] << "," << MP[i] << "," << W[i] << "," << D[i] << "," << L[i] << "," << GF[i] << "," << GA[i] << "," << GD[i] << "," << Pts[i] << endl;
+			cout << left << setw(3) << teams[i] << " " << MP[i] << " " << W[i] << " " << D[i] << " " << L[i] << " " << GF[i] << " " << GA[i] << " " << GD[i] << " " << Pts[i] << endl;
 		}
 		game_results.close();
 		final_table.close();

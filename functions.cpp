@@ -3,21 +3,35 @@
 #include <string>
 #include "init.h"
 using namespace std;
-void sort_teams(int* all_points, string * teams, int n)
+void sort_teams(int* MP, int* W, int* D, int* L, int* GF, int* GA, int* GD, int* Pts, string * teams, int n)
 {
 	for (int gap = n / 2; gap > 0; gap /= 2)
 	{
 		for (int i = gap; i < n; i += 1)
 		{
-			int temp = all_points[i];
+			int tempPts = Pts[i], tempMP = MP[i], tempW = W[i], tempD = D[i], tempL = L[i], tempGF = GF[i], tempGA = GA[i], tempGD = GD[i];
 			string temp_str = teams[i];
 			int j;
-			for (j = i; j >= gap && all_points[j - gap] < temp; j -= gap) {
-				all_points[j] = all_points[j - gap];
+			for (j = i; j >= gap && Pts[j - gap] < tempPts; j -= gap) {
+				Pts[j] = Pts[j - gap];
 				teams[j] = teams[j - gap];
+				MP[j] = MP[j - gap];
+				W[j] = W[j - gap];
+				D[j] = D[j - gap];
+				L[j] = L[j - gap];
+				GF[j] = GF[j - gap];
+				GA[j] = GA[j - gap];
+				GD[j] = GD[j - gap];
 			}
-			all_points[j] = temp;
+			Pts[j] = tempPts;
 			teams[j] = temp_str;
+			MP[j] = tempMP;
+			W[j] = tempW;
+			D[j] = tempD;
+			L[j] = tempL;
+			GF[j] = tempGF;
+			GA[j] = tempGA;
+			GD[j] = tempGD;
 		}
 	}
 }
@@ -29,21 +43,20 @@ string add_team(string line) {
 	line.erase(0, line.find(','));
 	return team;
 }
-int team_points(string line) {
+int* team_stats(string line) {
+	int MP = 0, W = 0, D = 0, L = 0, GF = 0, GA = 0, GD = 0, Pts = 0;
 	line += ',';
 	string col = ":";
-	int points = 0;
-	string they = "", opp = "";
-	int game_counter = 0;
+	string them = "", opp = "";
 	for (int i = 0; i < line.length(); i++) {
 		if (line[i] == ':') {
-			game_counter++;
+			MP++;
 		}
 	}
-	for (int i = 0; i < game_counter; i++) {
+	for (int i = 0; i < MP; i++) {
 		int j = line.find(col);
 		while (line[j-1] != ',') {
-			they += line[j-1];
+			them += line[j-1];
 			j--;
 		}
 		j = line.find(col);
@@ -52,16 +65,33 @@ int team_points(string line) {
 			j++;
 		}
 		line.erase(0, j+1);
-		int tp, op;
-		tp = stoi(they);
-		op = stoi(opp);
-		if (tp > op) {
-			points += 3;
+		int scored = 0, missed = 0;
+		scored = stoi(them);
+		GF += scored;
+		missed = stoi(opp);
+		GA += missed;
+		if (scored < missed) {
+			L++;
 		}
-		if (tp == op) {
-			points++;
+		if (scored == missed) {
+			Pts++;
+			D++;
 		}
-		they = "", opp = "";
+		if (scored > missed) {
+			Pts += 3;
+			W+=1;
+		}
+		them = "", opp = "";
 	}
-	return points;
+	GD = GF - GA;
+	int *stats = new int[8];
+	stats[0] = MP;
+	stats[1] = W;
+	stats[2] = D;
+	stats[3] = L;
+	stats[4] = GF;
+	stats[5] = GA;
+	stats[6] = GD;
+	stats[7] = Pts;
+	return stats;
 }
