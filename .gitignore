@@ -1,0 +1,9 @@
+Debug/
+lab/
+OP_lab1.vcxproj
+OP_lab1.vcxproj.filters
+OP_lab1.vcxproj.user
+pch.cpp
+pch.h
+premier_league.csv
+results.csv
