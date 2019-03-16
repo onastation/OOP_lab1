@@ -38,6 +38,7 @@ int main() {
 			k++;
 		}
 		sort_teams(MP, W, D, L, GF, GA, GD, Pts, teams, num);
+		check_GD(MP, W, D, L, GF, GA, GD, Pts, teams, num);
 		final_table << "Club" << ',' << "MP" << ',' << "W" << ',' << "D" << ',' << "L" << ',' << "GF" << ',' << "GA" << ',' << "GD" << ',' << "Pts" << endl;
 		cout << left << setw(25) << "Club" << setw(5) << "MP" << setw(5) << "W" << setw(5) << "D" << setw(5) << "L" << setw(5) << "GF" << setw(5) << "GA" << setw(5) << "GD" << setw(5) << "Pts" << endl;
 		for (int i = 0; i < num; i++) {

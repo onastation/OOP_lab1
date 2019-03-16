@@ -95,3 +95,22 @@ int* team_stats(string line) {
 	stats[7] = Pts;
 	return stats;
 }
+void check_GD(int* MP, int* W, int* D, int* L, int* GF, int* GA, int* GD, int* Pts, string * teams, int n) {
+	for (int i = 0; i < n - 1; i++) {
+		for (int j = 0; j < n - i - 1; j++) {
+			if (Pts[j] == Pts[j + 1]) {
+				if (GD[j + 1] > GD[j]) {
+					swap(teams[j], teams[j + 1]);
+					swap(Pts[j], Pts[j + 1]);
+					swap(MP[j], MP[j + 1]);
+					swap(W[j], W[j + 1]);
+					swap(D[j], D[j + 1]);
+					swap(L[j], L[j + 1]);
+					swap(GF[j], GF[j + 1]);
+					swap(GA[j], GA[j + 1]);
+					swap(GD[j], GD[j + 1]);
+				}
+			}
+		}
+	}
+}
