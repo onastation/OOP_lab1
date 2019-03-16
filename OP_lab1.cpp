@@ -48,6 +48,5 @@ int main() {
 		final_table.close();
 	}
 	else cout << "Unable to open file";
-	cout << "kek";
 	system("pause");
 }
