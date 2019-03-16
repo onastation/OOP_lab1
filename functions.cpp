@@ -37,10 +37,20 @@ void sort_teams(int* MP, int* W, int* D, int* L, int* GF, int* GA, int* GD, int*
 }
 string add_team(string line) {
 	string team;
-	for (int i = 0; i < line.find(','); i++) {
-		team += line[i];
+	int j = 0;
+	if (line.find('"') < line.find(',')) {
+		while (line[j+1] != '"') {
+			team += line[j+1];
+			j++;
+		}
+		line.erase(0, j + 1);
 	}
-	line.erase(0, line.find(','));
+	else {
+		for (int i = 0; i < line.find(','); i++) {
+			team += line[i];
+		}
+		line.erase(0, line.find(','));
+	}
 	return team;
 }
 int* team_stats(string line) {

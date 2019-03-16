@@ -40,10 +40,10 @@ int main() {
 		sort_teams(MP, W, D, L, GF, GA, GD, Pts, teams, num);
 		check_GD(MP, W, D, L, GF, GA, GD, Pts, teams, num);
 		final_table << "Club" << ',' << "MP" << ',' << "W" << ',' << "D" << ',' << "L" << ',' << "GF" << ',' << "GA" << ',' << "GD" << ',' << "Pts" << endl;
-		cout << left << setw(25) << "Club" << setw(5) << "MP" << setw(5) << "W" << setw(5) << "D" << setw(5) << "L" << setw(5) << "GF" << setw(5) << "GA" << setw(5) << "GD" << setw(5) << "Pts" << endl;
+		cout << left << setw(25) << "Club" << setw(7) << "MP" << setw(7) << "W" << setw(7) << "D" << setw(7) << "L" << setw(7) << "GF" << setw(7) << "GA" << setw(7) << "GD" << setw(7) << "Pts" << endl;
 		for (int i = 0; i < num; i++) {
 			final_table << teams[i] << "," << MP[i] << "," << W[i] << "," << D[i] << "," << L[i] << "," << GF[i] << "," << GA[i] << "," << GD[i] << "," << Pts[i] << endl;
-			cout << left << setw(25) << teams[i] << setw(5) << MP[i] << setw(5) << W[i] << setw(5) << D[i] << setw(5) << L[i] << setw(5) << GF[i] << setw(5) << GA[i] << setw(5) << GD[i] << setw(5) << Pts[i] << endl;
+			cout << left << setw(25) << teams[i] << setw(7) << MP[i] << setw(7) << W[i] << setw(7) << D[i] << setw(7) << L[i] << setw(7) << GF[i] << setw(7) << GA[i] << setw(7) << GD[i] << setw(7) << Pts[i] << endl;
 		}
 		game_results.close();
 		final_table.close();
